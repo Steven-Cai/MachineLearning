@@ -44,7 +44,7 @@ fprintf('First 10 examples from the dataset: \n');
 fprintf(' x = [%.0f %.0f], y = %.0f \n', [X(1:10,:) y(1:10,:)]');
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+% pause;
 
 % Scale features and set them to zero mean
 fprintf('Normalizing Features ...\n');
@@ -89,11 +89,17 @@ num_iters = 400;
 theta = zeros(3, 1);
 [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
 
+% seleting learning rates
+theta = zeros(3, 1);
+[theta, J_history_improve] = gradientDescentMulti(X, y, theta, alpha * 3, num_iters);
+
 % Plot the convergence graph
 figure;
 plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
 xlabel('Number of iterations');
 ylabel('Cost J');
+hold on;
+plot(1:numel(J_history_improve), J_history_improve, '-r', 'LineWidth', 2);
 
 % Display gradient descent's result
 fprintf('Theta computed from gradient descent: \n');
@@ -106,6 +112,9 @@ fprintf('\n');
 % not need to be normalized.
 price = 0; % You should change this
 
+size = (1650 - mu(1, 1)) / sigma(1, 1);
+br = (3 - mu(1, 2)) / sigma(1, 2);
+price = sum([1, size, br] * theta);
 
 % ============================================================
 
@@ -113,7 +122,7 @@ fprintf(['Predicted price of a 1650 sq-ft, 3 br house ' ...
          '(using gradient descent):\n $%f\n'], price);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+% pause;
 
 %% ================ Part 3: Normal Equations ================
 
@@ -150,7 +159,7 @@ fprintf('\n');
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
 price = 0; % You should change this
-
+price = sum([1, 1650, 3] * theta);
 
 % ============================================================
 

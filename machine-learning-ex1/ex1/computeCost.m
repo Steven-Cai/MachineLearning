@@ -13,8 +13,13 @@ J = 0;
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
 
-
-
+hypothesis = X * theta;
+for n = 1:m
+    diff = hypothesis(n, 1) - y(n, 1);
+    diff = diff * diff;
+    J += diff;
+end
+J = 1 / (2 * m) * J;
 
 
 % =========================================================================
