@@ -20,12 +20,20 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+for i = 1:m
+  hypothesis = sigmoid(transpose(theta) * transpose(X(i, :)));
+  J += -y(i) * log(hypothesis) - (1 - y(i)) * log(1 - hypothesis);
+end
 
+for j = 1:length(theta)
+  for i = 1:m
+    hypothesis = sigmoid(transpose(theta) * transpose(X(i, :)));
+    grad(j, 1) += (hypothesis - y(i)) * X(i, j);
+  end
+  grad(j, 1) /= m;
+end
 
-
-
-
-
+J /= m;
 
 % =============================================================
 

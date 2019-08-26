@@ -46,7 +46,7 @@ legend('Admitted', 'Not admitted')
 hold off;
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 
 %% ============ Part 2: Compute Cost and Gradient ============
@@ -72,6 +72,7 @@ fprintf('Gradient at initial theta (zeros): \n');
 fprintf(' %f \n', grad);
 fprintf('Expected gradients (approx):\n -0.1000\n -12.0092\n -11.2628\n');
 
+
 % Compute and display cost and gradient with non-zero theta
 test_theta = [-24; 0.2; 0.2];
 [cost, grad] = costFunction(test_theta, X, y);
@@ -83,7 +84,7 @@ fprintf(' %f \n', grad);
 fprintf('Expected gradients (approx):\n 0.043\n 2.566\n 2.647\n');
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 
 %% ============= Part 3: Optimizing using fminunc  =============
@@ -120,7 +121,7 @@ legend('Admitted', 'Not admitted')
 hold off;
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 %% ============== Part 4: Predict and Accuracies ==============
 %  After learning the parameters, you'll like to use it to predict the outcomes
