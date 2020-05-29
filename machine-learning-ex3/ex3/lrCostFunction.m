@@ -36,14 +36,27 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+%fprintf("\nsize x: %d, %d\n", size(X))
+%fprintf("size y: %d, %d\n", size(y))
+%fprintf("size theta: %d, %d\n", size(theta))
+%fprintf("X : %f\n", X)
+%fprintf("\n");
+%fprintf("y : %f\n", y)
 
+h = sigmoid(X * theta);
+%fprintf("size h: %d, %d\n", size(h));
+one = ones(m, 1);
+J = 1 / m * (-1 .* (transpose(y) * log(h)) - transpose((one - y)) * log(one - h)) + lambda / (2 * m) * (transpose(theta(2:end)) * theta(2:end));
+%fprintf("J = %f\n", J);
 
+beta = h - y;
+grad = 1 / m * transpose(X) * beta; % Hint
+temp = theta;
+temp(1, 1) = 0;
+% fprintf("temp : %f\n", temp);
+grad = grad + lambda / m .* temp;
 
-
-
-
-
-
+%pause
 
 % =============================================================
 

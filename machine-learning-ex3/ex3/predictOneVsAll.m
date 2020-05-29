@@ -30,10 +30,10 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
-
-
-
+p = sigmoid(X * transpose(all_theta));
+fprintf("\nsize p: %d, %d\n", size(p));
+[max, p] = max(p, [], 2)
+fprintf("\nsize p: %d, %d\n", size(p));
 
 
 % =========================================================================
