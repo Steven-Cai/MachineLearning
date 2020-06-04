@@ -39,6 +39,34 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 %
+
+% --- unregularization J ---
+% Add ones to the X data matrix
+X = [ones(m, 1) X];
+
+num_labels_vector = 1:num_labels;
+
+one = ones(num_labels, 1);
+
+for i = 1:m
+    a1 = X(i,:);
+    a2 = sigmoid(Theta1 * transpose(a1));
+    a2 = [1; a2];
+    a3 = sigmoid(Theta2 * a2);
+    h = a3;
+    yi = (y(i, 1) == num_labels_vector);
+    J = J + (-yi * log(h) - (transpose(one) - yi) * log(one - h));
+end
+
+J = J / m;
+
+% --- regularization for J ---
+Theta1_reg = Theta1(:,2:end);
+Theta2_reg = Theta2(:,2:end);
+reg = lambda / (2 * m) * (sum(sum(Theta1_reg .^ 2)) + sum(sum(Theta2_reg .^ 2)));
+J = J + reg;
+
+
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 %         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
@@ -54,6 +82,29 @@ Theta2_grad = zeros(size(Theta2));
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+
+% --- Gradients for J ---
+for i = 1:m
+    % feedforward propagation
+    a1 = X(i,:);
+    z2 = Theta1 * transpose(a1);
+    a2 = sigmoid(z2);
+    a2 = [1; a2];
+    a3 = h = sigmoid(Theta2 * a2);
+    % caculate delta
+    yi = (y(i, 1) == num_labels_vector);
+    delta3 = a3 - transpose(yi);
+    delta2 = transpose(Theta2(:,2:end)) * delta3 .* sigmoidGradient(z2);
+
+    % accumulate the gradient
+    Theta1_grad = Theta1_grad + delta2 * a1;    % (25, 1) * (1, 400)
+    Theta2_grad = Theta2_grad + delta3 * transpose(a2);    % (10, 1) * (1, 26)    
+end
+
+Theta1_grad = Theta1_grad / m;
+Theta2_grad = Theta2_grad / m;
+
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
@@ -62,22 +113,9 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+% regularized
+Theta1_grad(:,2:end) = Theta1_grad(:,2:end) + lambda / m .* Theta1(:,2:end);
+Theta2_grad(:,2:end) = Theta2_grad(:,2:end) + lambda / m .* Theta2(:,2:end);
 
 
 % -------------------------------------------------------------
