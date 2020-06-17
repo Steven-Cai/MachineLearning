@@ -54,9 +54,16 @@ error_val   = zeros(m, 1);
 % ---------------------- Sample Solution ----------------------
 
 
+fprintf("size of Xval: %d, %d\n", size(Xval));
+fprintf("size of X: %d, %d\n", size(X));
 
-
-
+for i = 1:m
+    [theta] = trainLinearReg(X(1:i, :), y(1:i), lambda);
+    h = X(1:i, :) * theta;
+    h_val = Xval * theta;
+    error_train(i) = 1 / (2 * i) * sum((h - y(1:i)) .^ 2);
+    error_val(i) = 1 / (2 * m) * sum((h_val - yval) .^ 2);
+end
 
 
 % -------------------------------------------------------------
