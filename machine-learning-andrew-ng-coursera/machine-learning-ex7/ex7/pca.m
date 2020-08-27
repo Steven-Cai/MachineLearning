@@ -20,9 +20,9 @@ S = zeros(n);
 %       number of examples).
 %
 
+covariance = 1 / m * transpose(X) * X;
 
-
-
+[U, S, V] = svd(covariance);
 
 
 

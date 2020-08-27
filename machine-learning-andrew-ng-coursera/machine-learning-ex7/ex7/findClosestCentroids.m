@@ -21,11 +21,20 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
-
-
-
+for i = 1:size(X, 1)
+    for j = 1:K
+        distance = sum((X(i, :) - centroids(j, :)) .^ 2);
+        if j == 1
+            min_distance = distance;
+            idx(i, 1) = j;
+        end
+        if distance < min_distance
+            min_distance = distance;
+            idx(i, 1) = j;
+        end
+        % printf("i = %d, j = %d, distance = %f, min_distance = %f\n", i, j, distance, min_distance);
+    end
+end
 
 % =============================================================
 
